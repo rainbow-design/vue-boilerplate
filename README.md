@@ -2,30 +2,24 @@
 
 Vue CLI
 
-## Building and running on localhost
+## Start up
 
 First install dependencies:
 
 ```sh
-npm install
+yarn install
+```
+
+To create a development server:
+
+```sh
+yarn dev
 ```
 
 To create a production build:
 
 ```sh
-npm run build-prod
-```
-
-To create a development build:
-
-```sh
-npm run build-dev
-```
-
-## Running
-
-```sh
-node dist/bundle.js
+yarn build
 ```
 
 ## Credits
