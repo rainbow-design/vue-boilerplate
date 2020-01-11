@@ -50,6 +50,8 @@ const config = {
       template: require('html-webpack-template'),
       inject: false,
       appMountId: 'app',
+      links: ['https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css'],
+      // scripts: [],
       meta: [
         {
           name: 'description',
