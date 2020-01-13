@@ -1,3 +1,4 @@
+/* eslint-disable */
 const webpack = require('webpack');
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
@@ -32,7 +33,21 @@ const config = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: ['file-loader'],
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              esModule: false,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(vue|js)$/,
+        exclude: /node_modules/,
+        // 预处理
+        enforce: 'pre',
+        loader: 'eslint-loader',
       },
     ],
   },

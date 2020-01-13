@@ -1,5 +1,4 @@
 {
-  "rules": {},
   "env": {
     "es6": true,
     "browser": true
@@ -18,6 +17,9 @@
     "SharedArrayBuffer": "readonly"
   },
   "plugins": [
-    "vue"
-  ]
+    "vue", "html"
+  ],
+  "rules": {
+    "quotes": "off"
+  }
 }
