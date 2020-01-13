@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "vue",
+    "cli",
+    "webpack"
+  ],
+  "author": "yanyue404",
   "license": "ISC",
   "scripts": {
-    "clean": "rm dist/bundle.js",
-    "dev": "webpack-dev-server --open --mode development",
-    "build": "webpack -p --mode production",
+    "clean": "rimraf dist",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open",
+    "prebuild": "npm run clean",
+    "build": "cross-env NODE_ENV=production webpack -p",
     "lint": "eslint --ext .js --ext .vue src/",
     "lint:fix": "eslint --fix --ext .js --ext .vue src/"
   },
@@ -20,7 +25,9 @@
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
+    "autoprefixer": "^9.7.3",
     "babel-loader": "^8.0.6",
+    "cross-env": "^6.0.3",
     "css-loader": "^3.4.2",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
@@ -32,13 +39,15 @@
     "html-webpack-plugin": "^3.2.0",
     "html-webpack-template": "^6.2.0",
     "lodash-webpack-plugin": "^0.11.5",
+    "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.0",
+    "postcss-loader": "^3.0.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.1",
-    "url-loader": "^3.0.0",
     "vue-loader": "^15.8.3",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.41.5",
+    "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
   }

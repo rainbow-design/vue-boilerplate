@@ -4,13 +4,19 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const resolve = dir => path.resolve(__dirname, dir);
+const isDev = process.env.NODE_ENV === 'development';
+const isProd = process.env.NODE_ENV === 'production';
 
 const config = {
+  target: 'web',
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[contenthash].js',
+    filename: '[name].[hash:8].js',
+    publicPath: isProd ? './' : '/', // Dev必须使用 `/`,线上设为相对路径
   },
   module: {
     rules: [
@@ -25,11 +31,13 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(scss)$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader'],
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+          },
+        ],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
@@ -38,6 +46,8 @@ const config = {
             loader: 'file-loader',
             options: {
               esModule: false,
+              name: '[name].[ext]',
+              outputPath: 'assets/img/',
             },
           },
         ],
@@ -57,9 +67,12 @@ const config = {
       '@': resolve('src'), // 这样配置后 @ 可以指向 src 目录
     },
   },
-  devServer: {},
-  devtool: '#eval-source-map',
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: isDev ? '"development"' : '"production"',
+      },
+    }),
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       template: require('html-webpack-template'),
@@ -74,7 +87,19 @@ const config = {
         },
       ],
     }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // all options are optional
+      filename: isDev ? '[name].css' : '[name].[hash].css',
+      chunkFilename: isDev ? '[id].css' : 'style.[hash:8].css',
+      ignoreOrder: false, // Enable to remove warnings about conflicting order
+    }),
     new LodashModuleReplacementPlugin(),
+    // 生产模式分析
+    new BundleAnalyzerPlugin({
+      analyzerMode: isProd ? 'server' : 'disabled',
+      openAnalyzer: isProd === 'true',
+    }),
   ],
   optimization: {
     runtimeChunk: 'single',
@@ -89,5 +114,57 @@ const config = {
     },
   },
 };
+
+// development mode
+
+if (isDev) {
+  config.devtool = '#cheap-module-eval-source-map';
+  config.devServer = {
+    port: 9000,
+    overlay: {
+      errors: true,
+    },
+    hot: true,
+  };
+  config.module.rules.push({
+    test: /\.(scss)$/,
+    use: [
+      'vue-style-loader',
+      'css-loader',
+      {
+        loader: 'postcss-loader',
+        options: { sourceMap: true },
+      },
+      'sass-loader',
+    ],
+  });
+  config.plugins.push(
+    new webpack.HotModuleReplacementPlugin(), // 作用：HMR插件将HMR Runtime代码嵌入到bundle中，能够操作APP代码，完成代码替换
+    new webpack.NoEmitOnErrorsPlugin(), // 作用：跳过编译时出错的代码并记录，使编译后运行时的包不会发生错误。
+  );
+}
+
+// production mode
+
+if (isProd) {
+  config.output.filename = '[name].[chunkhash:8].js';
+  config.module.rules.push({
+    test: /\.(scss)$/,
+    use: [
+      {
+        loader: MiniCssExtractPlugin.loader,
+        options: {
+          publicPath: './',
+        },
+      },
+      'css-loader',
+      {
+        loader: 'postcss-loader',
+        options: { sourceMap: true },
+      },
+      'sass-loader',
+    ],
+  });
+}
 
 module.exports = config;

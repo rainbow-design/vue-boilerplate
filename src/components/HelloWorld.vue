@@ -111,4 +111,9 @@ li {
 a {
   color: #42b983;
 }
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>
