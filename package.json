@@ -16,7 +16,9 @@
     "prebuild": "npm run clean",
     "build": "cross-env NODE_ENV=production webpack -p",
     "lint": "eslint --ext .js --ext .vue src/",
-    "lint:fix": "eslint --fix --ext .js --ext .vue src/"
+    "lint:fix": "eslint --fix --ext .js --ext .vue src/",
+    "analyz": "webpack-bundle-analyzer --port 8888 ./dist/stats.json",
+    "build:analyz":"npm run build && npm run analyz "
   },
   "dependencies": {
     "lodash": "^4.17.15",

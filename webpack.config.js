@@ -16,7 +16,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash:8].js',
-    publicPath: isProd ? './' : '/', // Dev必须使用 `/`,线上设为相对路径
+    publicPath: isProd ? './' : '/', // Dev必须使用 `/`,线上暂设为相对路径
   },
   module: {
     rules: [
@@ -95,11 +95,6 @@ const config = {
       ignoreOrder: false, // Enable to remove warnings about conflicting order
     }),
     new LodashModuleReplacementPlugin(),
-    // 生产模式分析
-    new BundleAnalyzerPlugin({
-      analyzerMode: isProd ? 'server' : 'disabled',
-      openAnalyzer: isProd === 'true',
-    }),
   ],
   optimization: {
     runtimeChunk: 'single',
@@ -165,6 +160,13 @@ if (isProd) {
       'sass-loader',
     ],
   });
+  // 生产模式分析
+  config.plugins.push(
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'disabled', // 不启动展示打包报告的http服务器
+      generateStatsFile: true, // 是否生成stats.json文件
+    }),
+  );
 }
 
 module.exports = config;
