@@ -5,7 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const HappyPack = require('happypack');
+const os = require('os');
 const resolve = dir => path.resolve(__dirname, dir);
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+const indexEntryConfig = require('./public/index.config');
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -31,7 +35,7 @@ const config = {
       },
       {
         test: /\.js$/,
-        use: 'babel-loader?cacheDirectory=true',
+        use: 'happypack/loader?id=babel',
         exclude: /node_modules/,
       },
       {
@@ -84,14 +88,14 @@ const config = {
       inject: false,
       appMountId: 'app',
       // 主页 index.html 配置 【link,script, meta】
-      links: ['https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css'],
-      scripts: ['https://cdn.bootcss.com/vue/2.6.6/vue.min.js'],
-      meta: [
-        {
-          name: 'description',
-          content: 'A better default template for rainbow-vue-cli.',
-        },
-      ],
+      links: indexEntryConfig.links,
+      scripts: indexEntryConfig.scripts,
+      meta: indexEntryConfig.meta,
+    }),
+    new HappyPack({
+      id: 'babel',
+      loaders: ['babel-loader?cacheDirectory=true'],
+      threadPool: happyThreadPool,
     }),
     new MiniCssExtractPlugin({
       filename: isDev ? '[name].css' : '[name].[hash].css',
