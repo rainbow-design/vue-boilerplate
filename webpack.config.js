@@ -17,6 +17,12 @@ const config = {
     filename: '[name].[hash:8].js',
     publicPath: isProd ? './' : '/', // Dev必须使用 `/`,线上暂设为相对路径
   },
+  // 外部扩展
+  // 防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖
+  // 将 Vue 从 vendors.js 中移除，使用 cdn 引入 73k =>
+  externals: {
+    Vue: 'Vue',
+  },
   module: {
     rules: [
       {
@@ -79,7 +85,7 @@ const config = {
       appMountId: 'app',
       // 主页 index.html 配置 【link,script, meta】
       links: ['https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css'],
-      // scripts: [],
+      scripts: ['https://cdn.bootcss.com/vue/2.6.6/vue.min.js'],
       meta: [
         {
           name: 'description',
@@ -99,8 +105,10 @@ const config = {
     splitChunks: {
       cacheGroups: {
         vendor: {
-          // eslint-disable-next-line
-          test: /[\\\/]node_modules[\\\/]/,
+          // https://webpack.docschina.org/plugins/split-chunks-plugin/
+          // TODO: 更新 需要导入的 vendor.js 模块，此处选择将 vue 移除，使用 cdn 外部引入
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          // 所有 import 导入 vendor.js  test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
           chunks: 'all',
         },
