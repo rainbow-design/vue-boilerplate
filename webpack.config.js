@@ -78,6 +78,7 @@ const config = {
       template: require('html-webpack-template'),
       inject: false,
       appMountId: 'app',
+      // 主页 index.html 配置 【link,script, meta】
       links: ['https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css'],
       // scripts: [],
       meta: [
@@ -88,11 +89,9 @@ const config = {
       ],
     }),
     new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // all options are optional
       filename: isDev ? '[name].css' : '[name].[hash].css',
       chunkFilename: isDev ? '[id].css' : 'style.[hash:8].css',
-      ignoreOrder: false, // Enable to remove warnings about conflicting order
+      ignoreOrder: false, // 启用以删除有关顺序冲突的警告
     }),
     new LodashModuleReplacementPlugin(),
   ],

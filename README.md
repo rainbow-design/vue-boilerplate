@@ -16,12 +16,31 @@ To create a development server:
 yarn dev
 ```
 
+Run eslint code check:
+
+```sh
+yarn eslint
+
+```
+
+Fix eslint mistakes:
+
+```sh
+yarn eslint:fix
+```
+
 To create a production build:
 
 ```sh
 yarn build
 ```
 
-## Credits
+To create a production build and analyz:
 
-Made with [createapp.dev](https://createapp.dev/)
+```sh
+yarn build:analyz
+```
+
+## Thanks
+
+Production based [createapp.dev](https://createapp.dev/)

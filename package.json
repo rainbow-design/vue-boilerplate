@@ -11,6 +11,7 @@
   "author": "yanyue404",
   "license": "ISC",
   "scripts": {
+    "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
     "clean": "rimraf dist",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open",
     "prebuild": "npm run clean",
@@ -18,7 +19,7 @@
     "lint": "eslint --ext .js --ext .vue src/",
     "lint:fix": "eslint --fix --ext .js --ext .vue src/",
     "analyz": "webpack-bundle-analyzer --port 8888 ./dist/stats.json",
-    "build:analyz":"npm run build && npm run analyz "
+    "build:analyz": "npm run build && npm run analyz "
   },
   "dependencies": {
     "lodash": "^4.17.15",
@@ -27,6 +28,8 @@
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "autoprefixer": "^9.7.3",
     "babel-loader": "^8.0.6",
     "cross-env": "^6.0.3",
