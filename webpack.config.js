@@ -1,4 +1,3 @@
-/* eslint-disable */
 const webpack = require('webpack');
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
@@ -100,6 +99,7 @@ const config = {
     splitChunks: {
       cacheGroups: {
         vendor: {
+          // eslint-disable-next-line
           test: /[\\\/]node_modules[\\\/]/,
           name: 'vendors',
           chunks: 'all',
