@@ -78,9 +78,9 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: isDev ? '"development"' : '"production"',
-      },
+      'process.env': isDev
+        ? require('./config/dev.env')
+        : require('./config/prod.env'),
     }),
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
@@ -126,6 +126,13 @@ const config = {
 if (isDev) {
   config.devtool = '#cheap-module-eval-source-map';
   config.devServer = {
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://xxx.com',
+    //     pathRewrite: { '^/api': '' },
+    //     changeOrigin: true, // target是域名的话，跨域需要这个参数，
+    //   },
+    // },
     port: 9000,
     overlay: {
       errors: true,
