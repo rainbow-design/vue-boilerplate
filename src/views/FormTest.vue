@@ -22,10 +22,10 @@
   </div>
 </template>
 <script>
-import KForm from './form/KForm.vue';
-import KInput from './form/KInput.vue';
-import KFormItem from './form/KFormItem.vue';
-import FlexLayout from './flex-layout.vue';
+import KForm from '../components/form/KForm.vue';
+import KInput from '../components/form/KInput.vue';
+import KFormItem from '../components/form/KFormItem.vue';
+import FlexLayout from '../components/flex-layout.vue';
 export default {
   components: {
     KForm,

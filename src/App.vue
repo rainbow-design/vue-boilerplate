@@ -3,12 +3,14 @@
     <img alt="Vue logo" src="./assets/logo.png" />
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <FormTest></FormTest>
+    <TreeTest></TreeTest>
   </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld';
-import FormTest from '@/components/FormTest';
+import HelloWorld from '@/views/HelloWorld';
+import FormTest from '@/views/FormTest';
+import TreeTest from '@/views/TreeTest';
 import Image from './assets/logo.png';
 
 export default {
@@ -16,6 +18,7 @@ export default {
   components: {
     HelloWorld,
     FormTest,
+    TreeTest,
   },
   data() {
     return {
