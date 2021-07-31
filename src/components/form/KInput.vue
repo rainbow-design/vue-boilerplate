@@ -8,21 +8,30 @@
 <script>
 export default {
   inheritAttrs: false, // 避免顶层容器继承属性
+  componentName: 'FormInput',
   props: {
     value: {
       type: String,
       default: '',
     },
   },
-  data() {
-    return {};
+
+  computed: {
+    parentFormItem() {
+      let parent = this.$parent;
+      while (parent && parent.$options.componentName !== 'FormItem') {
+        parent = parent.$parent;
+      }
+      return parent;
+    },
   },
+
   methods: {
     onInput(e) {
       this.$emit('input', e.target.value);
       // 通知 FormItem 校验
       //  TODO 隔代不够健壮
-      this.$parent.$emit('validate');
+      this.parentFormItem.$emit('validate');
     },
   },
 };

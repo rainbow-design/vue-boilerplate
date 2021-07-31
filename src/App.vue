@@ -8,7 +8,7 @@
 
 <script>
 import HelloWorld from '@/components/HelloWorld';
-import FormTest from '@/components/form/index';
+import FormTest from '@/components/FormTest';
 import Image from './assets/logo.png';
 
 export default {
