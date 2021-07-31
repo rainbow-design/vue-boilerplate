@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
-import '@/styles/flex.css';
+import '@/styles/flex.scss';
 
 Vue.config.productionTip = false;
 
