@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-export default function create(ComponentName, options) {
+function create(ComponentName, options) {
   // 创建组件实例
   const vm = new Vue({
     render(h) {
@@ -22,3 +22,5 @@ export default function create(ComponentName, options) {
   // 返回组件实例
   return comp;
 }
+
+export { create };
