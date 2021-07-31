@@ -4,6 +4,7 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <FormTest></FormTest>
     <TreeTest></TreeTest>
+    <router-view></router-view>
   </div>
 </template>
 
