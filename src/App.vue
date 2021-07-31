@@ -1,18 +1,21 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
+    <FormTest></FormTest>
   </div>
 </template>
 
 <script>
 import HelloWorld from '@/components/HelloWorld';
+import FormTest from '@/components/form/index';
 import Image from './assets/logo.png';
 
 export default {
   name: 'app',
   components: {
     HelloWorld,
+    FormTest,
   },
   data() {
     return {

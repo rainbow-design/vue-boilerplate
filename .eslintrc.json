@@ -21,6 +21,8 @@
     "vue", "html"
   ],
   "rules": {
-    "quotes": "off"
+    "quotes": "off",
+    "vue/no-unused-components": 1, // 警告就行了
+    "prettier/prettier": 0
   }
 }

@@ -17,7 +17,7 @@
     "prebuild": "npm run clean",
     "build": "cross-env NODE_ENV=production webpack -p",
     "lint": "eslint --ext .js --ext .vue src/",
-    "lint:fix": "eslint --fix --ext .js --ext .vue src/",
+    "lint:fix": "eslint --fix --ext .js --ext .vue src/ --ignore-path .gitignore .",
     "analyz": "webpack-bundle-analyzer --port 8888 ./dist/stats.json",
     "build:analyz": "npm run build && npm run analyz ",
     "prettier": "prettier --write \"./src/*.{js,jsx,vue,css,html,scss,md,json}\""
@@ -34,6 +34,7 @@
     ]
   },
   "dependencies": {
+    "async-validator": "^3.5.2",
     "lodash": "^4.17.15",
     "vue": "^2.6.11"
   },
