@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const HappyPack = require('happypack');
 const os = require('os');
-const resolve = dir => path.resolve(__dirname, dir);
+const resolve = (dir) => path.resolve(__dirname, dir);
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const indexEntryConfig = require('./public/index.config');
 const isDev = process.env.NODE_ENV === 'development';
@@ -61,19 +61,13 @@ const config = {
           },
         ],
       },
-      {
-        test: /\.(vue|js)$/,
-        exclude: /node_modules/,
-        // 预处理
-        enforce: 'pre',
-        loader: 'eslint-loader',
-      },
     ],
   },
   resolve: {
     extensions: ['.js', '.vue'],
     alias: {
       '@': resolve('src'), // 这样配置后 @ 可以指向 src 目录
+      vue: 'vue/dist/vue.esm.js',
     },
   },
   plugins: [
@@ -133,7 +127,7 @@ if (isDev) {
     //     changeOrigin: true, // target是域名的话，跨域需要这个参数，
     //   },
     // },
-    port: 9000,
+    port: 9002,
     overlay: {
       errors: true,
     },

@@ -1,6 +1,4 @@
-# rainbow-vue-cli
-
-Vue CLI
+# vue-boilerplate
 
 ## Start up
 
@@ -20,7 +18,6 @@ Run eslint code check:
 
 ```sh
 yarn eslint
-
 ```
 
 Fix eslint mistakes:
@@ -40,6 +37,12 @@ To create a production build and analyz:
 ```sh
 yarn build:analyz
 ```
+
+## Changelog
+
+**2021.08.02**
+
+1. 升级到 Vue 2.6.14 & vue-router@3.0.2；
 
 ## Thanks
 

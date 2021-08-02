@@ -6,7 +6,9 @@
   },
   "parserOptions": {
     "ecmaVersion": 2018,
+    "parser": "babel-eslint",
     "sourceType": "module"
+
   },
   "extends": [
     "eslint:recommended",
@@ -18,9 +20,10 @@
     "SharedArrayBuffer": "readonly"
   },
   "plugins": [
-    "vue", "html"
+    "vue"
   ],
   "rules": {
-    "quotes": "off"
+    "quotes": "off",
+    "vue/no-unused-components": 1 // 警告就行了
   }
 }
